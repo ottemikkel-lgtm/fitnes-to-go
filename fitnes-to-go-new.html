@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness To Go — Træn hvor som helst</title>
+  <meta name="description" content="Fitness To Go — resistance bands til hjemmet, fitnesscenteret og på farten.">
+  <style>
+    :root{
+      --bg:#f7f7f4; --dark:#111; --muted:#666; --card:#fff;
+      --accent:#b7f000; --accent-dark:#8fbf00; --line:#e8e8e3;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--dark);line-height:1.5}
+    a{text-decoration:none;color:inherit}
+    .topbar{background:#111;color:#fff;text-align:center;padding:9px;font-size:13px;letter-spacing:.3px}
+    nav{height:76px;background:rgba(247,247,244,.95);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line)}
+    .logo{font-weight:900;font-size:22px;letter-spacing:-1px}
+    .logo span{color:#8fbf00}
+    nav ul{display:flex;gap:30px;list-style:none;font-size:14px;font-weight:700}
+    .cart{background:#111;color:#fff;border-radius:99px;padding:11px 18px;font-weight:800;font-size:13px}
+    .hero{min-height:650px;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:60px 7%;gap:45px}
+    .eyebrow{font-weight:900;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+    h1{font-size:clamp(48px,6vw,82px);line-height:.94;letter-spacing:-4px;max-width:650px}
+    h1 span{background:var(--accent);padding:0 8px}
+    .hero p{color:var(--muted);font-size:18px;max-width:520px;margin:28px 0}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:15px 23px;border-radius:10px;font-weight:900;border:2px solid #111}
+    .btn.primary{background:#111;color:#fff}
+    .btn.secondary{background:transparent}
+    .hero-img{height:520px;border-radius:28px;background:url('https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&w=1200&q=85') center/cover;box-shadow:20px 20px 0 var(--accent)}
+    .trust{display:flex;justify-content:center;gap:50px;padding:28px 6%;background:#111;color:#fff;flex-wrap:wrap}
+    .trust div{text-align:center}.trust strong{display:block;font-size:20px}.trust span{font-size:12px;color:#bbb}
+    section{padding:90px 7%}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:35px}
+    .section-head h2{font-size:46px;letter-spacing:-2px;line-height:1}
+    .section-head p{color:var(--muted);max-width:430px}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .product{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;position:relative}
+    .product.featured{border:2px solid #111}
+    .badge{position:absolute;top:16px;left:16px;background:var(--accent);padding:7px 11px;border-radius:99px;font-size:11px;font-weight:900;z-index:2}
+    .product-img{height:280px;background-size:cover;background-position:center}
+    .img1{background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=85')}
+    .img2{background-image:url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=900&q=85')}
+    .img3{background-image:url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=85')}
+    .product-body{padding:24px}
+    .product h3{font-size:25px}.product p{color:var(--muted);font-size:14px;margin:8px 0 18px}
+    .price{font-size:30px;font-weight:900}.per{font-size:12px;color:#777;font-weight:600}
+    .buy{display:block;background:#111;color:#fff;text-align:center;padding:13px;border-radius:9px;font-weight:900;margin-top:18px}
+    .features{background:#111;color:#fff}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:35px}
+    .feature-card{border-top:1px solid #444;padding-top:22px}.feature-icon{font-size:30px}.feature-card h3{margin:14px 0 8px;font-size:21px}.feature-card p{color:#aaa;font-size:14px}
+    .bundle{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+    .bundle-img{height:430px;border-radius:25px;background:url('https://images.unsplash.com/photo-1598289431512-b97b0917affc?auto=format&fit=crop&w=1200&q=85') center/cover}
+    .bundle h2{font-size:52px;letter-spacing:-2px;line-height:1}
+    .bundle p{color:var(--muted);margin:22px 0}.check{margin:14px 0;font-weight:700}
+    .reviews{background:#e9ebdf}.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.review{background:#fff;padding:25px;border-radius:18px}.stars{letter-spacing:3px;margin-bottom:12px}.review p{font-weight:650}.review small{display:block;color:#777;margin-top:15px}
+    footer{background:#111;color:#fff;padding:50px 7%;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+    footer p{color:#999;font-size:13px}.footer-links{display:flex;gap:22px;font-size:13px}
+    @media(max-width:850px){
+      nav ul{display:none}.hero,.bundle{grid-template-columns:1fr}.hero-img{height:400px}.products,.feature-grid,.review-grid{grid-template-columns:1fr}.hero{padding-top:45px}section{padding:65px 6%}.section-head{display:block}.section-head p{margin-top:15px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">🚚 Hurtig levering • Træn hvor som helst • Fitness To Go</div>
+
+  <nav>
+    <a class="logo" href="#">FITNESS <span>TO GO</span></a>
+    <ul>
+      <li><a href="#produkter">Produkter</a></li>
+      <li><a href="#fordele">Fordele</a></li>
+      <li><a href="#anmeldelser">Anmeldelser</a></li>
+    </ul>
+    <a class="cart" href="#produkter">Køb nu →</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Resistance Bands · Fitness To Go</div>
+        <h1>Din træning.<br><span>Dit sted.</span><br>Din styrke.</h1>
+        <p>Effektiv træning uden stort udstyr. Tag dine resistance bands med i tasken og træn hjemme, i fitnesscenteret eller på farten.</p>
+        <div class="buttons">
+          <a class="btn primary" href="#produkter">Se pakker →</a>
+          <a class="btn secondary" href="#fordele">Hvorfor bands?</a>
+        </div>
+      </div>
+      <div class="hero-img" aria-label="Person der træner"></div>
+    </section>
+
+    <div class="trust">
+      <div><strong>★★★★★</strong><span>Fokus på kvalitet</span></div>
+      <div><strong>1–3 dage</strong><span>Hurtig levering</span></div>
+      <div><strong>129 kr.</strong><span>Start din træning</span></div>
+      <div><strong>100%</strong><span>Træn hvor du vil</span></div>
+    </div>
+
+    <section id="produkter">
+      <div class="section-head">
+        <h2>Vælg din pakke.</h2>
+        <p>Jo flere bands du vælger, jo mere får du for pengene. Find den løsning, der passer til din træning.</p>
+      </div>
+      <div class="products">
+        <article class="product">
+          <div class="product-img img1"></div>
+          <div class="product-body">
+            <h3>1 × Resistance Band</h3>
+            <p>En enkel start til din træning derhjemme eller på farten.</p>
+            <div class="price">129 kr. <span class="per">/ stk.</span></div>
+            <a class="buy" href="#kontakt">Vælg 1 →</a>
+          </div>
+        </article>
+        <article class="product featured">
+          <div class="badge">MEST POPULÆRE</div>
+          <div class="product-img img2"></div>
+          <div class="product-body">
+            <h3>2 × Resistance Bands</h3>
+            <p>Få mere variation og flere muligheder i din træning.</p>
+            <div class="price">149 kr. <span class="per">/ 2 stk.</span></div>
+            <a class="buy" href="#kontakt">Vælg 2 →</a>
+          </div>
+        </article>
+        <article class="product">
+          <div class="badge">BEDSTE VÆRDI</div>
+          <div class="product-img img3"></div>
+          <div class="product-body">
+            <h3>3 × Resistance Bands</h3>
+            <p>Den komplette pakke til dig, der vil have flere muligheder.</p>
+            <div class="price">199 kr. <span class="per">/ 3 stk.</span></div>
+            <div id="product-component-1787914805095"></div>
+          <style>#product-component-1787914805095{margin-top:18px}</style>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="features" id="fordele">
+      <div class="section-head">
+        <h2>Træn på din måde.</h2>
+        <p>Fitness To Go gør det nemt at få lidt ekstra bevægelse ind i hverdagen.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card"><div class="feature-icon">◉</div><h3>Tag dem med overalt</h3><p>Let og kompakt design, så du nemt kan have dine bands med i tasken.</p></div>
+        <div class="feature-card"><div class="feature-icon">↗</div><h3>Mange øvelser</h3><p>Brug bands til en lang række øvelser og tilpas modstanden til din træning.</p></div>
+        <div class="feature-card"><div class="feature-icon">+</div><h3>Enkel træning</h3><p>Ingen store maskiner. Bare bands, lidt plads og lysten til at komme i gang.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="bundle">
+        <div class="bundle-img"></div>
+        <div>
+          <div class="eyebrow">FITNESS TO GO</div>
+          <h2>Stærk træning.<br>Minimal plads.</h2>
+          <p>Resistance bands er en enkel måde at gøre din træning mere fleksibel. Brug dem som supplement til din normale træning eller når du ikke har adgang til et fitnesscenter.</p>
+          <div class="check">✓ Nemme at tage med</div>
+          <div class="check">✓ Perfekte til hjemmet og på farten</div>
+          <div class="check">✓ 3 pakker fra kun 129 kr.</div>
+          <a class="btn primary" href="#produkter" style="margin-top:18px">Find din pakke →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews" id="anmeldelser">
+      <div class="section-head">
+        <h2>Det siger kunderne.</h2>
+        <p>En enkel sektion til kundeanmeldelser — udskift gerne eksemplerne med dine rigtige anmeldelser, når du får dem.</p>
+      </div>
+      <div class="review-grid">
+        <div class="review"><div class="stars">★★★★★</div><p>"Virkelig nemme at have med. Jeg bruger dem både hjemme og når jeg rejser."</p><small>— Kunde</small></div>
+        <div class="review"><div class="stars">★★★★★</div><p>"God løsning hvis man ikke har meget plads til træningsudstyr."</p><small>— Kunde</small></div>
+        <div class="review"><div class="stars">★★★★★</div><p>"Jeg kan godt lide, at de er simple og hurtigt kan pakkes væk."</p><small>— Kunde</small></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="kontakt">
+    <div><div class="logo">FITNESS <span>TO GO</span></div><p style="margin-top:10px">Træn hvor som helst. Bevæg dig mere.</p></div>
+    <div class="footer-links"><a href="#">Kontakt</a><a href="#">Levering</a><a href="#">Retur</a><a href="#">FAQ</a></div>
+  </footer>
+
+  <script>
+    // Shopify Buy Button / Storefront integration
+    (function () {
+      var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+      var shopifyDomain = '1exsu2-ch.myshopify.com';
+      var storefrontAccessToken = 'a87edee78773f85500be3945672265b6';
+      var productId = '10675811713371';
+      var shopifyReady = false;
+
+      function initShopify() {
+        if (!window.ShopifyBuy || !window.ShopifyBuy.buildClient) return;
+        var client = ShopifyBuy.buildClient({
+          domain: shopifyDomain,
+          storefrontAccessToken: storefrontAccessToken
+        });
+
+        // Store the product so the custom Fitness To Go buttons can use Shopify checkout.
+        client.product.fetch(productId).then(function (product) {
+          window.fitnessToGoShopifyProduct = product;
+          window.fitnessToGoShopifyClient = client;
+          shopifyReady = true;
+        }).catch(function (error) {
+          console.error('Shopify kunne ikke indlæses:', error);
+        });
+      }
+
+      function loadShopify() {
+        if (window.ShopifyBuy) {
+          initShopify();
+          return;
+        }
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = scriptURL;
+        script.onload = initShopify;
+        document.head.appendChild(script);
+      }
+
+      loadShopify();
+
+      // Vælg 1: opens Shopify checkout for the product from the code you supplied.
+      var firstButton = document.querySelector('.product .buy');
+      if (firstButton) {
+        firstButton.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (!shopifyReady) {
+            alert('Shopify indlæses lige nu. Prøv igen om et øjeblik.');
+            return;
+          }
+
+          var product = window.fitnessToGoShopifyProduct;
+          var client = window.fitnessToGoShopifyClient;
+          var variant = product && product.variants && product.variants[0];
+          if (!variant) {
+            alert('Der blev ikke fundet en Shopify-variant på produktet.');
+            return;
+          }
+
+          client.checkout.create().then(function (checkout) {
+            return client.checkout.addLineItems(checkout.id, [{
+              variantId: variant.id,
+              quantity: 1
+            }]);
+          }).then(function (checkout) {
+            window.location.href = checkout.webUrl;
+          }).catch(function (error) {
+            console.error(error);
+            alert('Der opstod en fejl ved åbning af Shopify checkout.');
+          });
+        });
+      }
+
+      // Vælg 2 og Vælg 3 mangler deres egne Shopify-produktkoder.
+      document.querySelectorAll('.product .buy').forEach(function (button, index) {
+        if (index > 0) {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('Denne pakke mangler stadig sin Shopify-produktkode. Send mig Shopify-koden for denne pakke, så kobler jeg den på.');
+          });
+        }
+      });
+    })();
+  </script>
+
+<!-- Shopify Buy Button: 2 x Resistance Bands -->
+<div id='product-component-1787914472770'></div>
+<script type="text/javascript">
+/*<![CDATA[*/
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) {
+      ShopifyBuyInit();
+    } else {
+      loadScript();
+    }
+  } else {
+    loadScript();
+  }
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: '1exsu2-ch.myshopify.com',
+      storefrontAccessToken: 'a87edee78773f85500be3945672265',
+    });
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      ui.createComponent('product', {
+        id: '10675838124379',
+        node: document.getElementById('product-component-1787914472770'),
+        moneyFormat: '%7B%7Bamount_with_comma_separator%7D%7D%20kr',
+        options: {
+          "product": {
+            "styles": {
+              "product": {
+                "@media (min-width: 601px)": {
+                  "max-width": "100%",
+                  "margin-left": "0",
+                  "margin-bottom": "50px"
+                },
+                "text-align": "left"
+              },
+              "title": {"font-size": "26px"},
+              "button": {
+                "font-family": "Arial, sans-serif",
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px",
+                ":hover": {"background-color": "#000000"},
+                "background-color": "#000000",
+                ":focus": {"background-color": "#000000"}
+              },
+              "quantityInput": {
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px"
+              },
+              "price": {"font-size": "18px"},
+              "compareAt": {"font-size": "15.299999999999999px"},
+              "unitPrice": {"font-size": "15.299999999999999px"}
+            },
+            "buttonDestination": "checkout",
+            "layout": "horizontal",
+            "contents": {
+              "img": false,
+              "imgWithCarousel": true,
+              "description": true
+            },
+            "width": "100%",
+            "text": {"button": "Buy now"}
+          },
+          "productSet": {
+            "styles": {"products": {"@media (min-width: 601px)": {"margin-left": "-20px"}}}
+          },
+          "modalProduct": {
+            "contents": {
+              "img": false,
+              "imgWithCarousel": true,
+              "button": false,
+              "buttonWithQuantity": true
+            },
+            "styles": {
+              "product": {
+                "@media (min-width: 601px)": {
+                  "max-width": "100%",
+                  "margin-left": "0px",
+                  "margin-bottom": "0px"
+                }
+              },
+              "button": {
+                "font-family": "Arial, sans-serif",
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px",
+                ":hover": {"background-color": "#000000"},
+                "background-color": "#000000",
+                ":focus": {"background-color": "#000000"}
+              },
+              "quantityInput": {
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px"
+              },
+              "title": {
+                "font-family": "Helvetica Neue, sans-serif",
+                "font-weight": "bold",
+                "font-size": "26px",
+                "color": "#4c4c4c"
+              },
+              "price": {
+                "font-family": "Helvetica Neue, sans-serif",
+                "font-weight": "normal",
+                "font-size": "18px",
+                "color": "#4c4c4c"
+              },
+              "compareAt": {
+                "font-family": "Helvetica Neue, sans-serif",
+                "font-weight": "normal",
+                "font-size": "15.299999999999999px",
+                "color": "#4c4c4c"
+              },
+              "unitPrice": {
+                "font-family": "Helvetica Neue, sans-serif",
+                "font-weight": "normal",
+                "font-size": "15.299999999999999px",
+                "color": "#4c4c4c"
+              }
+            },
+            "text": {"button": "Add to cart"}
+          },
+          "option": {},
+          "cart": {
+            "styles": {
+              "button": {
+                "font-family": "Arial, sans-serif",
+                "font-size": "16px",
+                "padding-top": "16px",
+                "padding-bottom": "16px",
+                ":hover": {"background-color": "#000000"},
+                "background-color": "#000000",
+                ":focus": {"background-color": "#000000"}
+              }
+            },
+            "text": {"total": "Subtotal", "button": "Checkout"}
+          },
+          "toggle": {
+            "styles": {
+              "toggle": {
+                "font-family": "Arial, sans-serif",
+                "background-color": "#000000",
+                ":hover": {"background-color": "#000000"},
+                ":focus": {"background-color": "#000000"}
+              },
+              "count": {"font-size": "16px"}
+            }
+          }
+        }
+      });
+    });
+  }
+})();
+/*]]>*/
+</script>
+
+<!-- Shopify Buy Button: 3 x Resistance Bands -->
+<script type="text/javascript">
+/*<![CDATA[*/
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); }
+  } else { loadScript(); }
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: '1exsu2-ch.myshopify.com',
+      storefrontAccessToken: 'a87edee78773f85500be3945672265b6',
+    });
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      ui.createComponent('product', {
+        id: '10675851985243',
+        node: document.getElementById('product-component-1787914805095'),
+        moneyFormat: '%7B%7Bamount_with_comma_separator%7D%7D%20kr',
+        options: {
+          "product": {
+            "styles": {
+              "product": { "@media (min-width: 601px)": { "max-width": "100%", "margin-left": "0", "margin-bottom": "0" }, "text-align": "left" },
+              "title": { "font-size": "26px" },
+              "button": { "font-family": "Arial, sans-serif", "font-size": "16px", "padding-top": "16px", "padding-bottom": "16px", ":hover": { "background-color": "#000000" }, "background-color": "#000000", ":focus": { "background-color": "#000000" } },
+              "quantityInput": { "font-size": "16px", "padding-top": "16px", "padding-bottom": "16px" },
+              "price": { "font-size": "18px" }, "compareAt": { "font-size": "15.3px" }, "unitPrice": { "font-size": "15.3px" }
+            },
+            "buttonDestination": "checkout",
+            "layout": "horizontal",
+            "contents": { "img": false, "imgWithCarousel": true, "description": true },
+            "width": "100%",
+            "text": { "button": "Buy now" }
+          },
+          "productSet": { "styles": { "products": { "@media (min-width: 601px)": { "margin-left": "-20px" } } } },
+          "modalProduct": {
+            "contents": { "img": false, "imgWithCarousel": true, "button": false, "buttonWithQuantity": true },
+            "styles": {
+              "product": { "@media (min-width: 601px)": { "max-width": "100%", "margin-left": "0px", "margin-bottom": "0px" } },
+              "button": { "font-family": "Arial, sans-serif", "font-size": "16px", "padding-top": "16px", "padding-bottom": "16px", ":hover": { "background-color": "#000000" }, "background-color": "#000000", ":focus": { "background-color": "#000000" } },
+              "quantityInput": { "font-size": "16px", "padding-top": "16px", "padding-bottom": "16px" },
+              "title": { "font-family": "Helvetica Neue, sans-serif", "font-weight": "bold", "font-size": "26px", "color": "#4c4c4c" },
+              "price": { "font-family": "Helvetica Neue, sans-serif", "font-weight": "normal", "font-size": "18px", "color": "#4c4c4c" },
+              "compareAt": { "font-family": "Helvetica Neue, sans-serif", "font-weight": "normal", "font-size": "15.3px", "color": "#4c4c4c" },
+              "unitPrice": { "font-family": "Helvetica Neue, sans-serif", "font-weight": "normal", "font-size": "15.3px", "color": "#4c4c4c" }
+            },
+            "text": { "button": "Add to cart" }
+          },
+          "option": {},
+          "cart": {
+            "styles": { "button": { "font-family": "Arial, sans-serif", "font-size": "16px", "padding-top": "16px", "padding-bottom": "16px", ":hover": { "background-color": "#000000" }, "background-color": "#000000", ":focus": { "background-color": "#000000" } } },
+            "text": { "total": "Subtotal", "button": "Checkout" }
+          },
+          "toggle": {
+            "styles": { "toggle": { "font-family": "Arial, sans-serif", "background-color": "#000000", ":hover": { "background-color": "#000000" }, ":focus": { "background-color": "#000000" } }, "count": { "font-size": "16px" } }
+          }
+        }
+      });
+    });
+  }
+})();
+/*]]>*/
+</script>
+</body>
+</html>
